@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-import { Team } from './models/team';
-
+export interface Team {
+  id: number;
+  name: string;
+  players: string[];
+}
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,7 +16,6 @@ import { Team } from './models/team';
 export class AppComponent {
   // 1. Nuestra "Base de Datos" local
   teams: Team[] = [];
-
   // 2. Variables para el formulario (lo que escribe el usuario)
   newTeamName: string = '';
   newPlayerName: string = '';
