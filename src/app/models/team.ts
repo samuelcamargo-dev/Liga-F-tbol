@@ -1,4 +1,5 @@
 export interface Team {
+    id: number;
     name: string;
-    players: string[]; // ¡Solo una lista de textos con los nombres!
+    players: string[];
 }
