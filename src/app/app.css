@@ -1,109 +1,92 @@
-/* Contenedor Principal */
-.main-container {
-    max-width: 600px;
-    margin: 0 auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
+/* CONTENEDOR PRINCIPAL */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
 }
 
+/* TÍTULO PRINCIPAL */
 .title {
-    text-align: center;
-    color: #2c3e50;
+  text-align: center;
+  color: #2c3e50;
 }
 
-/* Tarjeta del Formulario */
-.form-card {
-    background: #f4f7f6;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+/* TARJETA DEL FORMULARIO */
+.card {
+  background: #f4f7f6;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.input-team {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+/* INPUTS */
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.player-input-row {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-}
-
-.input-player {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-/* Botones */
-.btn-add {
-    padding: 10px 20px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-add:hover { background: #2980b9; }
-
+/* BOTÓN PRINCIPAL */
 .btn-save {
-    width: 100%;
-    padding: 15px;
-    background: #27ae60;
-    color: white;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    border-radius: 4px;
+  width: 100%;
+  padding: 12px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-.btn-save:hover { background: #219150; }
-
-.btn-delete {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
+/* BOTÓN AÑADIR JUGADOR */
+.btn-add {
+  padding: 8px;
+  background: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-/* Tarjetas de Equipo */
+/* TARJETA DE EQUIPO */
 .team-card {
-    border-left: 5px solid #27ae60;
-    background: white;
-    padding: 15px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative;
-    border-radius: 0 8px 8px 0;
+  border-left: 5px solid #27ae60;
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+  border-radius: 4px;
 }
 
-.team-name {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 1.2rem;
+/* BOTÓN BORRAR EQUIPO */
+.btn-delete {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
-.team-players {
-    margin: 8px 0 0;
-    font-size: 0.9em;
-    color: #7f8c8d;
+/* BOTONES DE PUNTOS */
+.btn-plus {
+  margin-left: 10px;
+  padding: 5px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }
 
-.preview-text {
-    font-size: 0.85em;
-    color: #666;
+.btn-minus {
+  padding: 5px;
+  background: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }

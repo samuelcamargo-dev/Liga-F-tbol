@@ -1,35 +1,44 @@
-<div class="main-container">
+<div class="container">
   
   <h1 class="title">⚽ Gestor de Liga Amateur</h1>
 
-  <div class="form-card">
+  <div class="card">
     <h3>Inscribir Equipo</h3>
     
-    <input type="text" [(ngModel)]="newTeamName" placeholder="Nombre del equipo" class="input-team">
-    
-    <div class="player-input-row">
-      <input type="text" [(ngModel)]="newPlayerName" placeholder="Nombre del jugador" class="input-player">
+    <input type="text" [(ngModel)]="newTeamName" placeholder="Nombre del equipo" style="width: 80%;">
+
+    <div style="margin-top: 10px;">
+      <input type="text" [(ngModel)]="newPlayerName" placeholder="Nombre del jugador">
       <button (click)="addPlayerToList()" class="btn-add">+ Añadir</button>
     </div>
 
-    <p class="preview-text"><i>Jugadores añadidos: {{ tempPlayers.join(', ') }}</i></p>
+    <p><i>Jugadores añadidos: {{ tempPlayers.join(', ') }}</i></p>
 
     <button (click)="saveTeam()" class="btn-save">
       GUARDAR EQUIPO EN LA LIGA
     </button>
   </div>
 
-  <div class="list-container">
+  <div>
     <h3>Equipos en la Liga ({{ teams.length }})</h3>
     
     <div *ngFor="let team of teams" class="team-card">
       
       <button (click)="deleteTeam(team.id)" class="btn-delete">X</button>
 
-      <h4 class="team-name">{{ team.name }}</h4>
-      <p class="team-players">
+      <h4>{{ team.name }}</h4>
+
+      <p>
         <b>Jugadores:</b> {{ team.players.join(', ') }}
       </p>
+
+      <div style="margin-top: 10px;">
+        <b>Puntos:</b> {{ team.puntos }}
+
+        <button (click)="sumarPunto(team)" class="btn-plus">+1</button>
+        <button (click)="restarPunto(team)" class="btn-minus">-1</button>
+      </div>
+
     </div>
   </div>
 
