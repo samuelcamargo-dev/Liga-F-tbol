@@ -20,9 +20,20 @@ export class ServicioService {
   }
 
   // Borrar un equipo por ID
-  deleteTeam(id: number) {
-    this.teams = this.teams.filter(t => t.id !== id);
+deleteTeam(id: number) {
+  const index = this.teams.findIndex(t => t.id === id);
+  if (index !== -1) {
+    this.teams.splice(index, 1); // 👈 modifica el mismo array
   }
+}
+removePlayer(team: Team, player: string) {
+  const index = team.players.indexOf(player);
+  if (index !== -1) {
+    team.players.splice(index, 1); // 👈 elimina SIN cambiar la referencia
+  }
+}
+
+
 
   // Sumar puntos
   addPoint(team: Team) {

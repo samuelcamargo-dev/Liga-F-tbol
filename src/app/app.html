@@ -22,15 +22,13 @@
   <div>
     <h3>Equipos en la Liga ({{ teams.length }})</h3>
     
-    <div *ngFor="let team of teams" class="team-card">
+    <div *ngFor="let team of teams | orderByPoints" class="team-card">
       
       <button (click)="deleteTeam(team.id)" class="btn-delete">X</button>
 
       <h4>{{ team.name }}</h4>
 
-      <p>
-        <b>Jugadores:</b> {{ team.players.join(', ') }}
-      </p>
+    
 
       <div style="margin-top: 10px;">
         <b>Puntos:</b> {{ team.puntos }}

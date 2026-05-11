@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { OrderByPointsPipe } from '../Pipes/ordenacion-por-puntos-pipe'; 
+
 
 // IMPORTACIÓN CORRECTA DEL SERVICIO
-import { ServicioService } from './services/servicio';
+import { ServicioService } from '../services/servicio';
 
 // IMPORTACIÓN CORRECTA DEL MODELO
-import { Team } from './models/team';
+import { Team } from '../models/team';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [CommonModule, FormsModule,OrderByPointsPipe],
+  templateUrl: '../app.html',
+  styleUrl: '../app.css'
 })
 export class AppComponent {
 
@@ -55,6 +57,10 @@ export class AppComponent {
       this.tempPlayers = [];
     }
   }
+  removePlayer(team: Team, player: string) {
+  this.servicio.removePlayer(team, player);
+}
+
 
   // Borrar equipo
   deleteTeam(id: number) {
