@@ -1,53 +1,73 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
-export interface Team {
-  id: number;
-  name: string;
-  players: string[];
-}
+import { FormsModule } from '@angular/forms';
+
+// IMPORTACIÓN CORRECTA DEL SERVICIO
+import { ServicioService } from './services/servicio';
+
+// IMPORTACIÓN CORRECTA DEL MODELO
+import { Team } from './models/team';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule], // FormsModule es para capturar lo que escribes
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class AppComponent {
-  // 1. Nuestra "Base de Datos" local
+
+  // Equipos obtenidos desde el servicio
   teams: Team[] = [];
-  // 2. Variables para el formulario (lo que escribe el usuario)
+
+  // Variables del formulario
   newTeamName: string = '';
   newPlayerName: string = '';
-  tempPlayers: string[] = []; // Jugadores que vas añadiendo antes de guardar el equipo
+  tempPlayers: string[] = [];
 
-  // 3. Función: Añadir jugador a la lista temporal
+  constructor(private servicio: ServicioService) {
+    // Cargar equipos desde el servicio
+    this.teams = this.servicio.getTeams();
+  }
+
+  // Añadir jugador temporal
   addPlayerToList() {
     if (this.newPlayerName.trim() !== '') {
       this.tempPlayers.push(this.newPlayerName);
-      this.newPlayerName = ''; // Limpiar el cuadrito después de añadir
+      this.newPlayerName = '';
     }
   }
 
-  // 4. Función: Guardar el equipo definitivo
+  // Guardar equipo
   saveTeam() {
     if (this.newTeamName.trim() !== '' && this.tempPlayers.length > 0) {
-      const newTeam: Team = {
-        id: Date.now(), // Un truco para tener un ID único basado en el tiempo
-        name: this.newTeamName,
-        players: [...this.tempPlayers]
-      };
-      
-      this.teams.push(newTeam);
 
-      // Limpiamos todo para el siguiente equipo
+      const newTeam: Team = {
+        id: Date.now(),
+        name: this.newTeamName,
+        players: [...this.tempPlayers],
+        puntos: 0
+      };
+
+      this.servicio.addTeam(newTeam);
+
       this.newTeamName = '';
       this.tempPlayers = [];
     }
   }
 
-  // 5. Función: Borrar equipo (La "D" del CRUD)
+  // Borrar equipo
   deleteTeam(id: number) {
-    this.teams = this.teams.filter(t => t.id !== id);
+    this.servicio.deleteTeam(id);
+  }
+
+  // Sumar punto
+  sumarPunto(team: Team) {
+    this.servicio.addPoint(team);
+  }
+
+  // Restar punto
+  restarPunto(team: Team) {
+    this.servicio.removePoint(team);
   }
 }
