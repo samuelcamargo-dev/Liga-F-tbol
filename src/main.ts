@@ -1,6 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
-import { AppComponent } from '../src/app/web/app';
+// La ruta correcta desde src/ es:
+import { AppComponent } from './app/web/app'; 
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
