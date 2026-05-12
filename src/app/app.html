@@ -24,7 +24,7 @@
     
    <!--<div *ngFor="let team of teams | orderByPoints" class="team-card">
     --> 
-@for (team of teamsOrdered; track $index) {
+@for (team of teams; track $index) {
   <div class="team-card">
 
     <button (click)="deleteTeam(team.id)" class="btn-delete">X</button>
