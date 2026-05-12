@@ -1,35 +1,52 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { OrderByPointsPipe } from '../Pipes/ordenacion-por-puntos-pipe'; 
 
-
-// IMPORTACIÓN CORRECTA DEL SERVICIO
 import { ServicioService } from '../services/servicio';
-
-// IMPORTACIÓN CORRECTA DEL MODELO
 import { Team } from '../models/team';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule,OrderByPointsPipe],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, OrderByPointsPipe],
   templateUrl: '../app.html',
   styleUrl: '../app.css'
 })
 export class AppComponent {
 
-  // Equipos obtenidos desde el servicio
+  // LOGIN
+  isLogged: boolean = false;
+  loginForm: any;
+
+  // Equipos
   teams: Team[] = [];
 
-  // Variables del formulario
+  // Formulario de equipos
   newTeamName: string = '';
   newPlayerName: string = '';
   tempPlayers: string[] = [];
 
-  constructor(private servicio: ServicioService) {
-    // Cargar equipos desde el servicio
+  // Buscador
+  searchPlayer: string = '';
+
+  constructor(private servicio: ServicioService, private fb: FormBuilder) {
+
+    // Cargar equipos
     this.teams = this.servicio.getTeams();
+
+    // Crear formulario de login
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  // LOGIN
+  login() {
+    if (this.loginForm.valid) {
+      this.isLogged = true;
+    }
   }
 
   // Añadir jugador temporal
@@ -57,10 +74,11 @@ export class AppComponent {
       this.tempPlayers = [];
     }
   }
-  removePlayer(team: Team, player: string) {
-  this.servicio.removePlayer(team, player);
-}
 
+  // Eliminar jugador
+  removePlayer(team: Team, player: string) {
+    this.servicio.removePlayer(team, player);
+  }
 
   // Borrar equipo
   deleteTeam(id: number) {
@@ -76,29 +94,27 @@ export class AppComponent {
   restarPunto(team: Team) {
     this.servicio.removePoint(team);
   }
-  
+
+  // Ordenar equipos
   get teamsOrdered() {
-  return this.teams.slice().sort((a, b) => b.puntos - a.puntos);
-}
-searchPlayer: string = '';
-
-get filteredPlayers() {
-  if (!this.searchPlayer.trim()) return [];
-
-  const term = this.searchPlayer.toLowerCase();
-
-  const results: { player: string; team: string }[] = [];
-
-  for (const team of this.teams) {
-    for (const player of team.players) {
-      if (player.toLowerCase().includes(term)) {
-        results.push({ player, team: team.name });
-      }
-    }
+    return this.teams.slice().sort((a, b) => b.puntos - a.puntos);
   }
 
-  return results;
-}
+  // Buscador de jugadores
+  get filteredPlayers() {
+    if (!this.searchPlayer.trim()) return [];
 
+    const term = this.searchPlayer.toLowerCase();
+    const results: { player: string; team: string }[] = [];
 
+    for (const team of this.teams) {
+      for (const player of team.players) {
+        if (player.toLowerCase().includes(term)) {
+          results.push({ player, team: team.name });
+        }
+      }
+    }
+
+    return results;
+  }
 }
