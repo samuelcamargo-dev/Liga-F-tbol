@@ -80,5 +80,25 @@ export class AppComponent {
   get teamsOrdered() {
   return this.teams.slice().sort((a, b) => b.puntos - a.puntos);
 }
+searchPlayer: string = '';
+
+get filteredPlayers() {
+  if (!this.searchPlayer.trim()) return [];
+
+  const term = this.searchPlayer.toLowerCase();
+
+  const results: { player: string; team: string }[] = [];
+
+  for (const team of this.teams) {
+    for (const player of team.players) {
+      if (player.toLowerCase().includes(term)) {
+        results.push({ player, team: team.name });
+      }
+    }
+  }
+
+  return results;
+}
+
 
 }

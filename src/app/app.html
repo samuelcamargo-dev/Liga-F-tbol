@@ -1,10 +1,10 @@
 <div class="container">
-  
+
   <h1 class="title">⚽ Gestor de Liga Amateur</h1>
 
   <div class="card">
     <h3>Inscribir Equipo</h3>
-    
+
     <input type="text" [(ngModel)]="newTeamName" placeholder="Nombre del equipo" style="width: 80%;">
 
     <div style="margin-top: 10px;">
@@ -21,36 +21,47 @@
 
   <div>
     <h3>Equipos en la Liga ({{ teams.length }})</h3>
-    
-   <!--<div *ngFor="let team of teams | orderByPoints" class="team-card">
-    --> 
-@for (team of teamsOrdered; track $index) {
-  <div class="team-card">
+    <div class="card" style="margin-top: 20px;">
+      <h3>Buscar jugador</h3>
 
-    <button (click)="deleteTeam(team.id)" class="btn-delete">X</button>
+      <input type="text" [(ngModel)]="searchPlayer" placeholder="Nombre del jugador" style="width: 80%;">
 
-    <h4>{{ team.name }}</h4>
-    <p><b>Jugadores:</b></p>
+      <p *ngIf="filteredPlayers.length === 0 && searchPlayer.trim() !== ''">
+        ❌ No se encontró ningún jugador con ese nombre
+      </p>
 
-<ul>
-  @for (player of team.players; track $index) {
-    <li>{{ player }}</li>
-  }
-</ul>
-
-
-    <div style="margin-top: 10px;">
-      <b>Puntos:</b> {{ team.puntos }}
-      <button (click)="sumarPunto(team)" class="btn-plus">+1</button>
-      <button (click)="restarPunto(team)" class="btn-minus">-1</button>
+      <ul *ngIf="filteredPlayers.length > 0">
+        <li *ngFor="let item of filteredPlayers">
+          <b>{{ item.player }}</b> — Equipo: <i>{{ item.team }}</i>
+        </li>
+      </ul>
     </div>
 
-  </div>
-}
+
+    <!--<div *ngFor="let team of teams | orderByPoints" class="team-card">
+    -->
+    @for (team of teamsOrdered; track $index) {
+    <div class="team-card">
+
+      <button (click)="deleteTeam(team.id)" class="btn-delete">X</button>
+
+      <h4>{{ team.name }}</h4>
+      <p><b>Jugadores:</b></p>
+
+      <ul>
+        @for (player of team.players; track $index) {
+        <li>{{ player }}</li>
+        }
+      </ul>
+
+
+      <div style="margin-top: 10px;">
+        <b>Puntos:</b> {{ team.puntos }}
+        <button (click)="sumarPunto(team)" class="btn-plus">+1</button>
+        <button (click)="restarPunto(team)" class="btn-minus">-1</button>
+      </div>
+
+    </div>
+    }
 
   </div>
-      
-
-      
-
-
