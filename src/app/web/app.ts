@@ -76,4 +76,9 @@ export class AppComponent {
   restarPunto(team: Team) {
     this.servicio.removePoint(team);
   }
+  
+  get teamsOrdered() {
+  return this.teams.slice().sort((a, b) => b.puntos - a.puntos);
+}
+
 }
